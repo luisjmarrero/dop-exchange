@@ -1,0 +1,25 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/v1/rates/": {
+            "get": {
+                "description": "Get Rates from DOP to all supported currencies",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rates"
+                ],
+                "summary": "et Rates from DOP to all supported currencies",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}
