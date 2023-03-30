@@ -19,9 +19,12 @@ func NewRouter() *gin.Engine {
 		ratesGroup := v1.Group("rates")
 		{
 			rates := new(controllers.RatesController)
-			ratesGroup.GET("/", rates.GetAllRates)
-			ratesGroup.GET("/:coin", rates.GetRate)
+			ratesGroup.GET("/", rates.GetAllDOPRates)
+			ratesGroup.GET("/:target", rates.GetRateFromDOP)
+			ratesGroup.GET("custom/:base/:target", rates.GetRateFromBase)
 		}
+		coins := new(controllers.CoinsController)
+		v1.GET("/coins", coins.GetSupportedCoins)
 	}
 	return router
 
