@@ -33,6 +33,16 @@ func (r RatesController) GetRateFromBase(c *gin.Context) {
 	return
 }
 
+// @BasePath /api/v1
+
+// PingExample godoc
+// @Summary et Rates from DOP to all supported currencies
+// @Schemes
+// @Description Get Rates from DOP to all supported currencies
+// @Tags rates
+// @Produce json
+// @Success 200
+// @Router /v1/rates/ [get]
 func (r RatesController) GetAllDOPRates(c *gin.Context) {
 	rates, err := ratesService.GetAllDOPRates()
 	if err != nil {
