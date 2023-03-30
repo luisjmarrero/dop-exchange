@@ -1,6 +1,8 @@
 # DOP Exchange API
 
-TODO
+Simple API to get exchange rates between `DOP` and other currencies.
+
+For now the data is being fetch from https://exchangerate.host/
 
 ## Diagram
 
