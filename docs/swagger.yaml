@@ -1,0 +1,99 @@
+basePath: /
+definitions:
+  models.Health:
+    properties:
+      status:
+        type: string
+    type: object
+  models.Rate:
+    properties:
+      buy_rate:
+        description: how much DOP it takes to buy 1 COIN
+        type: number
+      coin:
+        type: string
+      sell_rate:
+        description: how much DOP it you make from selling 1 COIN
+        type: number
+      source:
+        type: string
+      updated_date:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: Luis Marrero
+    url: https://github.com/luisjmarrero
+  description: Sample API to exchange DOP to other currencies
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: DOP Exchange API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      consumes:
+      - '*/*'
+      description: get the status of server.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Health'
+      summary: Show the status of server.
+      tags:
+      - Health
+  /v1/rates/:
+    get:
+      description: Get rates from DOP to all supported currencies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Rate'
+            type: array
+      summary: Get rates from DOP to all supported currencies
+      tags:
+      - Rates
+  /v1/rates/:targetCurrency:
+    get:
+      description: Get the exchange rates from DOP to the target currency
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Rate'
+            type: array
+      summary: Get the exchange rates from DOP to the target currency
+      tags:
+      - Rates
+  /v1/rates/custom/:baseCurrency/:targetCurrency:
+    get:
+      description: Get rates from BASE to TARGET
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Rate'
+            type: array
+      summary: Get rates from BASE to TARGET
+      tags:
+      - Rates
+schemes:
+- http
+swagger: "2.0"

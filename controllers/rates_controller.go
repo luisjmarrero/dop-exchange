@@ -11,6 +11,14 @@ type RatesController struct{}
 
 var ratesService = new(service.RatesService)
 
+// GetRateFromDOP godoc
+// @Summary Get the exchange rates from DOP to the target currency
+// @Schemes
+// @Description Get the exchange rates from DOP to the target currency
+// @Tags Rates
+// @Produce json
+// @Success 200 {object} []models.Rate
+// @Router /v1/rates/:targetCurrency [get]
 func (r RatesController) GetRateFromDOP(c *gin.Context) {
 	rate, err := ratesService.GetFromDOP(c.Param("target"))
 	if err != nil {
@@ -21,6 +29,14 @@ func (r RatesController) GetRateFromDOP(c *gin.Context) {
 	return
 }
 
+// GetAllDOPRates godoc
+// @Summary Get rates from BASE to TARGET
+// @Schemes
+// @Description Get rates from BASE to TARGET
+// @Tags Rates
+// @Produce json
+// @Success 200 {object} []models.Rate
+// @Router /v1/rates/custom/:baseCurrency/:targetCurrency [get]
 func (r RatesController) GetRateFromBase(c *gin.Context) {
 	base := c.Param("base")
 	to := c.Param("target")
@@ -33,6 +49,14 @@ func (r RatesController) GetRateFromBase(c *gin.Context) {
 	return
 }
 
+// GetAllDOPRates godoc
+// @Summary Get rates from DOP to all supported currencies
+// @Schemes
+// @Description Get rates from DOP to all supported currencies
+// @Tags Rates
+// @Produce json
+// @Success 200 {object} []models.Rate
+// @Router /v1/rates/ [get]
 func (r RatesController) GetAllDOPRates(c *gin.Context) {
 	rates, err := ratesService.GetAllDOPRates()
 	if err != nil {
