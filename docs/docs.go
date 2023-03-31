@@ -10,26 +10,142 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Luis Marrero",
+            "url": "https://github.com/luisjmarrero",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/v1/rates/": {
+        "/health": {
             "get": {
-                "description": "Get Rates from DOP to all supported currencies",
+                "description": "get the status of server.",
+                "consumes": [
+                    "*/*"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "rates"
+                    "Health"
                 ],
-                "summary": "et Rates from DOP to all supported currencies",
+                "summary": "Show the status of server.",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Health"
+                        }
                     }
+                }
+            }
+        },
+        "/v1/rates/": {
+            "get": {
+                "description": "Get rates from DOP to all supported currencies",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get rates from DOP to all supported currencies",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Rate"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/rates/:targetCurrency": {
+            "get": {
+                "description": "Get the exchange rates from DOP to the target currency",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get the exchange rates from DOP to the target currency",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Rate"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/rates/custom/:baseCurrency/:targetCurrency": {
+            "get": {
+                "description": "Get rates from BASE to TARGET",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get rates from BASE to TARGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Rate"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Health": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Rate": {
+            "type": "object",
+            "properties": {
+                "buy_rate": {
+                    "description": "how much DOP it takes to buy 1 COIN",
+                    "type": "number"
+                },
+                "coin": {
+                    "type": "string"
+                },
+                "sell_rate": {
+                    "description": "how much DOP it you make from selling 1 COIN",
+                    "type": "number"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "updated_date": {
+                    "type": "string"
                 }
             }
         }
@@ -38,12 +154,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
-	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Version:          "1.0",
+	Host:             "localhost:8080",
+	BasePath:         "/",
+	Schemes:          []string{"http"},
+	Title:            "DOP Exchange API",
+	Description:      "Sample API to exchange DOP to other currencies",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

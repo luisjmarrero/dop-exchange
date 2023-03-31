@@ -2,6 +2,7 @@ package server
 
 import (
 	"lmarrero/dop-exchange-api/controllers"
+	"lmarrero/dop-exchange-api/docs"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -30,6 +31,7 @@ func NewRouter() *gin.Engine {
 	}
 
 	// swagger
+	docs.SwaggerInfo.BasePath = "/"
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return router

@@ -21,6 +21,11 @@ clean:
 deps:
 	@go mod download
 
+.PHONY: gen-doc
+## gen-doc: Generate Swagger documentation
+gen-doc:
+	@swag init
+
 .PHONY: help
 all: help
 # help: show this help message
