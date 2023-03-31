@@ -26,6 +26,15 @@ deps:
 gen-doc:
 	@swag init
 
+## docker-build: Builds and tag docker image
+docker-build:
+	@docker build -t luisjmarrero/dop-exchange . 
+
+
+## docker-run: Run docker container
+docker-run:
+	@docker run -p 8080:8080 luisjmarrero/dop-exchange
+
 .PHONY: help
 all: help
 # help: show this help message
